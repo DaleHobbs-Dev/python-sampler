@@ -12,7 +12,7 @@ def add_grade(student, grade):
     student = student.lower()
     if student in student_grades:
         del student_grades[student]
-        student_grades[student] = grade
+        student_grades[student] = int(grade)
         print(f"Grade `{grade}` updated for student `{student}`")
     else:
         student_grades[student] = grade
@@ -61,7 +61,7 @@ def find_grade(name):
 # Function used to calculate the class average
 def average_grades():
     """Calculate the class's average"""
-    total = sum(int(grade) for grade in student_grades.values())
+    total = sum(grade for grade in student_grades.values())
     average = total / len(student_grades)
     print(f"the class average for grades in the gradebook is {average}")
 
