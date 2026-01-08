@@ -36,6 +36,7 @@ def purchase_report():
             print(f"Eastman Kodak stock purchased for ${shares * price}.")
         if symbol == "CAT":
             print(f"Caterpillar stock purchased for ${shares * price}.")
+    print("\nEnd of Purchase Report\n----------------------")
 
 
 # Functions that outputs a stock dictionary
@@ -52,7 +53,7 @@ def build_stocks_dict(purchase_list):
 # Function that displays the entire purchase history of stocks
 def purchase_total_report():
     """Displays the purchase history for all stocks"""
-    print("List of all purchases")
+    print("List of Holding Totals")
     print("------------------------")
     total_ge = 0
     total_ek = 0
@@ -64,11 +65,47 @@ def purchase_total_report():
             total_ek += shares * price
         if symbol == "CAT":
             total_cat += shares * price
-    print(f"General Electric stock purchased for ${total_ge}.")
-    print(f"Caterpillar stock purchased for ${total_cat}.")
-    print(f"General Electric stock purchased for ${total_ek}.")
+    portfolio_total = total_cat + total_ek + total_ge
+    print(f"* GE Holdings: ${total_ge}.")
+    print(f"* CAT Holdings: ${total_cat}.")
+    print(f"* EK Holdings: ${total_ek}.")
+    print("\nPortfolio Total\n----------------------")
+    print(f"Total value of stock in portfolio: ${portfolio_total}")
+
+
+def portfolio_total_report():
+    """Displays the purchase history for all stocks"""
+    print("List of Holding Totals")
+    print("------------------------")
+
+    stocks_dict = build_stocks_dict(purchases)
+    holdings = {}  # empty dictionary to hold totals
+    portfolio_total = 0  # initialize portfolio total
+
+    # Calculate totals per stock symbol by looping through stocks dict
+    for symbol, purchase_list in stocks_dict.items():
+        # each dictionary item is a symbol and list of purchases
+        symbol_total = 0  # initialize symbol total
+        for (
+            _,
+            shares,
+            _,
+            price,
+        ) in (
+            purchase_list
+        ):  # deconstruct each purchase tuple and loop through summing totals
+            symbol_total += shares * price
+        holdings[symbol] = symbol_total  # add to holdings dictionary
+        portfolio_total += symbol_total  # add to portfolio total
+
+    for symbol, total in holdings.items():
+        print(f"* {symbol} Holdings: ${total}.")
+
+    print("\nPortfolio Total\n----------------------")
+    print(f"Total value of stock in portfolio: ${portfolio_total}")
 
 
 purchase_report()
-stocks = build_stocks_dict(purchases)
-print(stocks)
+# stocks = build_stocks_dict(purchases)
+# purchase_total_report()
+portfolio_total_report()
