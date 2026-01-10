@@ -53,6 +53,37 @@ def remove_movie(movie_title):
     print(f"Movie '{movie_title}' not found in the collection.")
 
 
+# Function that updates the director and year of a movie in the collection by it's title
+def update_movie(movie_title, new_director=None, new_year=None):
+    """Updates the director and/or year of a movie in the collection by title."""
+    for index, movie in enumerate(movie_collection):
+        movie_title_in_list, current_director, year_released = movie
+        if movie_title_in_list.lower() == movie_title.lower():
+            updated_director = new_director if new_director else current_director
+            updated_year = new_year if new_year else year_released
+            movie_collection[index] = (
+                movie_title_in_list,
+                updated_director,
+                updated_year,
+            )
+            print(f"Movie '{movie_title}' updated.")
+            return
+
+    print(f"Movie '{movie_title}' not found in the collection.")
+
+
+# Function that sorts movies by year released and displays sorted list
+def sort_movies_by_year():
+    """Sorts and displays movies by year released."""
+    # movie_collection.sort(key=lambda x: x[2])  # Sorts in place
+    sorted_movies = sorted(movie_collection, key=lambda x: x[2])
+    print("Movies sorted by year released:")
+    for movie_title, movie_director, year_released in sorted_movies:
+        print(
+            f"Title: {movie_title}, Director: {movie_director}, Year: {year_released}"
+        )
+
+
 # Displaying the movies
 display_movies()
 
@@ -76,3 +107,6 @@ remove_movie("Avatar")
 
 # Displaying the movies after removal
 display_movies()
+
+# Sorted Movies
+sort_movies_by_year()
