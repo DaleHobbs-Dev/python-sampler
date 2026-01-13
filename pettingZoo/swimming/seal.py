@@ -1,3 +1,9 @@
+"""Module for defining a Seal class in the petting zoo swimming section."""
+
+# import the python datetime module to help us create a timestamp
+from datetime import date
+
+
 # Define the Seal class
 class Seal:
     """A class representing a seal in the petting zoo."""
@@ -8,3 +14,6 @@ class Seal:
         self.species = species
         self.date_added = date.today()
         self.swimming = True
+
+    def __str__(self):
+        return f"{self.name} is a {self.species}"
